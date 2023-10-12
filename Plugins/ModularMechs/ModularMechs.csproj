@@ -120,10 +120,10 @@
     <Compile Include="Forms\SelectMechParts.Designer.cs">
       <DependentUpon>SelectMechParts.cs</DependentUpon>
     </Compile>
-    <Compile Include="ModularMechsPage.cs">
+    <Compile Include="Forms\ModularMechsPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ModularMechsPage.Designer.cs">
+    <Compile Include="Forms\ModularMechsPage.Designer.cs">
       <DependentUpon>ModularMechsPage.cs</DependentUpon>
     </Compile>
     <Compile Include="MyModularMechs.cs" />
@@ -163,7 +163,7 @@
     <EmbeddedResource Include="Forms\SelectMechParts.resx">
       <DependentUpon>SelectMechParts.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ModularMechsPage.resx">
+    <EmbeddedResource Include="Forms\ModularMechsPage.resx">
       <DependentUpon>ModularMechsPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

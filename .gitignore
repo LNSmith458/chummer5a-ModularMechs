@@ -214,3 +214,5 @@ FakesAssemblies/
 /.gitignore
 /Plugins/SamplePlugin
 /.gitignore
+/Chummer.sln
+/ModularMechs.cs
