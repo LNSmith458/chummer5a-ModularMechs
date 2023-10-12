@@ -5,14 +5,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EA016472-2F78-43F9-AF2C-809BDF766645}</ProjectGuid>
+    <ProjectGuid>{867412C2-CCCC-4B13-972F-725BABA45319}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SamplePlugin</RootNamespace>
-    <AssemblyName>SamplePlugin</AssemblyName>
+    <RootNamespace>ModularMechs</RootNamespace>
+    <AssemblyName>ModularMechs</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
+    <Deterministic>false</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
@@ -49,6 +49,9 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.ApplicationInsights, Version=2.21.0.429, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -111,12 +114,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MySamplePlugin.cs" />
+    <Compile Include="Forms\SelectMechParts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SelectMechParts.Designer.cs">
+      <DependentUpon>SelectMechParts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModularMechsPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ModularMechsPage.Designer.cs">
+      <DependentUpon>ModularMechsPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MyModularMechs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="ucOptions.cs">
       <SubType>UserControl</SubType>
@@ -134,8 +154,18 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Forms\SelectMechParts.resx">
+      <DependentUpon>SelectMechParts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModularMechsPage.resx">
+      <DependentUpon>ModularMechsPage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -156,40 +186,37 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>echo Statement 1: mkdir "$(TargetDir)Plugins\SamplePlugin\"
-        mkdir "$(TargetDir)Plugins\SamplePlugin\"
-        echo Statement 2: mkdir "$(SolutionDir)Chummer\bin\$(ConfigurationName)\Plugins\SamplePlugin\"
-        mkdir "$(SolutionDir)Chummer\bin\$(ConfigurationName)\Plugins\SamplePlugin\"
+    <PreBuildEvent>echo Statement 1: mkdir "$(TargetDir)Plugins\ModularMechs\"
+        mkdir "$(TargetDir)Plugins\ModularMechs\"
+        echo Statement 2: mkdir "$(SolutionDir)Chummer\bin\$(ConfigurationName)\Plugins\ModularMechs\"
+        mkdir "$(SolutionDir)Chummer\bin\$(ConfigurationName)\Plugins\ModularMechs\"
         Exit 0</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>echo Statement 1: copy "$(TargetDir)*" "$(TargetDir)Plugins\SamplePlugin\" /Y
-        copy "$(TargetDir)$(TargetName).*" "$(TargetDir)Plugins\SamplePlugin\" /Y
+    <PostBuildEvent>echo Statement 1: copy "$(TargetDir)*" "$(TargetDir)Plugins\ModularMechs\" /Y
+        copy "$(TargetDir)$(TargetName).*" "$(TargetDir)Plugins\ModularMechs\" /Y
 echo ----------------------------------------------------------------------------------------------------
 echo ----------------------------------------------------------------------------------------------------
 echo Statement 2: You need to copy every DLL here in the post-build step! This HAS to be done here!
 echo ----------------------------------------------------------------------------------------------------
 echo ----------------------------------------------------------------------------------------------------
-        echo Statement 3: copy "$(TargetDir)Newtonsoft.Json.*" "$(TargetDir)Plugins\SamplePlugin\" /Y
-        copy "$(TargetDir)Newtonsoft.Json.*" "$(TargetDir)Plugins\SamplePlugin\" /Y
-        echo Statement 4: copy "$(TargetDir)NLog.*" "$(TargetDir)Plugins\SamplePlugin\" /Y
-        copy "$(TargetDir)NLog.*" "$(TargetDir)Plugins\SamplePlugin\" /Y
-        echo Statement 5: copy "$(TargetDir)System.Composition.*" "$(TargetDir)Plugins\SamplePlugin\" /Y
-        copy "$(TargetDir)System.Composition.*" "$(TargetDir)Plugins\SamplePlugin\" /Y
-        echo Statement 6: copy "$(TargetDir)System.Diagnostics.DiagnosticSource.*" "$(TargetDir)Plugins\SamplePlugin\" /Y
-        copy "$(TargetDir)System.Diagnostics.DiagnosticSource.*" "$(TargetDir)Plugins\SamplePlugin\" /Y
-        echo Statement 7: copy "$(TargetDir)Microsoft.ApplicationInsights.*" "$(TargetDir)Plugins\SamplePlugin\" /Y
-        copy "$(TargetDir)Microsoft.ApplicationInsights.*" "$(TargetDir)Plugins\SamplePlugin\" /Y
-        echo Statement 11: copy "$(TargetDir)System.Memory.*" "$(TargetDir)Plugins\SamplePlugin\" /Y
-        copy "$(TargetDir)System.Memory.*" "$(TargetDir)Plugins\SamplePlugin\" /Y
-        echo Statement 12: copy "$(TargetDir)*.txt" "$(TargetDir)Plugins\SamplePlugin\" /Y
-        copy "$(TargetDir)*.txt" "$(TargetDir)Plugins\SamplePlugin\" /Y
+        echo Statement 3: copy "$(TargetDir)Newtonsoft.Json.*" "$(TargetDir)Plugins\ModularMechs\" /Y
+        copy "$(TargetDir)Newtonsoft.Json.*" "$(TargetDir)Plugins\ModularMechs\" /Y
+        echo Statement 4: copy "$(TargetDir)NLog.*" "$(TargetDir)Plugins\ModularMechs\" /Y
+        copy "$(TargetDir)NLog.*" "$(TargetDir)Plugins\ModularMechs\" /Y
+        echo Statement 5: copy "$(TargetDir)System.Composition.*" "$(TargetDir)Plugins\ModularMechs\" /Y
+        copy "$(TargetDir)System.Composition.*" "$(TargetDir)Plugins\ModularMechs\" /Y
+        echo Statement 6: copy "$(TargetDir)System.Diagnostics.DiagnosticSource.*" "$(TargetDir)Plugins\ModularMechs\" /Y
+        copy "$(TargetDir)System.Diagnostics.DiagnosticSource.*" "$(TargetDir)Plugins\ModularMechs\" /Y
+        echo Statement 7: copy "$(TargetDir)Microsoft.ApplicationInsights.*" "$(TargetDir)Plugins\ModularMechs\" /Y
+        copy "$(TargetDir)Microsoft.ApplicationInsights.*" "$(TargetDir)Plugins\ModularMechs\" /Y
+        echo Statement 11: copy "$(TargetDir)System.Memory.*" "$(TargetDir)Plugins\ModularMechs\" /Y
+        copy "$(TargetDir)System.Memory.*" "$(TargetDir)Plugins\ModularMechs\" /Y
+        echo Statement 12: copy "$(TargetDir)*.txt" "$(TargetDir)Plugins\ModularMechs\" /Y
+        copy "$(TargetDir)*.txt" "$(TargetDir)Plugins\ModularMechs\" /Y
 
-        echo Statement last: copy "$(TargetDir)Plugins\SamplePlugin\*" "$(SolutionDir)Chummer\bin\$(ConfigurationName)\Plugins\SamplePlugin\" /Y
-        copy "$(TargetDir)Plugins\SamplePlugin\*" "$(SolutionDir)Chummer\bin\$(ConfigurationName)\Plugins\SamplePlugin\" /Y
-
-
-</PostBuildEvent>
+        echo Statement last: copy "$(TargetDir)Plugins\ModularMechs\*" "$(SolutionDir)Chummer\bin\$(ConfigurationName)\Plugins\ModularMechs\" /Y
+        copy "$(TargetDir)Plugins\ModularMechs\*" "$(SolutionDir)Chummer\bin\$(ConfigurationName)\Plugins\ModularMechs\" /Y</PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

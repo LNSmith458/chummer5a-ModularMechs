@@ -209,3 +209,8 @@ FakesAssemblies/
 .idea
 /Winforms-Calendar
 /ChummerHub/Properties/launchSettings.json
+/Plugins/ChummerHub.Client/ChummerHub.Client.csproj
+/Plugins/SamplePlugin/SamplePlugin.csproj
+/.gitignore
+/Plugins/SamplePlugin
+/.gitignore
